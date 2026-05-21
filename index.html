@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ExcelCast</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            scroll-behavior:smooth;
+        }
+
+        body{
+
+            font-family:'Cormorant Garamond', serif;
+
+            background:
+            linear-gradient(
+            135deg,
+            rgba(45,10,80,0.85),
+            rgba(95,30,150,0.85),
+            rgba(20,140,180,0.75),
+            rgba(255,90,180,0.65)
+            ),
+
+            url("imágenes/FONDO 2.jpg");
+
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+            background-attachment:fixed;
+
+            color:white;
+
+            overflow-x:hidden;
+        }
+
+        /* BURBUJAS */
+
+        .burbuja{
+
+            position:fixed;
+
+            border-radius:50%;
+
+            background:rgba(255,255,255,0.12);
+
+            animation:flotar linear infinite;
+
+            z-index:0;
+        }
+
+        .burbuja:nth-child(1){
+            width:120px;
+            height:120px;
+            left:10%;
+            top:80%;
+            animation-duration:18s;
+        }
+
+        .burbuja:nth-child(2){
+            width:80px;
+            height:80px;
+            left:70%;
+            top:90%;
+            animation-duration:14s;
+        }
+
+        .burbuja:nth-child(3){
+            width:150px;
+            height:150px;
+            left:85%;
+            top:70%;
+            animation-duration:20s;
+        }
+
+        .burbuja:nth-child(4){
+            width:60px;
+            height:60px;
+            left:40%;
+            top:95%;
+            animation-duration:12s;
+        }
+
+        @keyframes flotar{
+
+            from{
+                transform:translateY(0);
+            }
+
+            to{
+                transform:translateY(-1200px) rotate(360deg);
+            }
+
+        }
+
+        /* ANIMACIÓN */
+
+        @keyframes aparecer{
+
+            from{
+                opacity:0;
+                transform:translateY(50px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+
+        }
+
+        /* HEADER */
+
+        header{
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            flex-direction:column;
+
+            text-align:center;
+
+            position:relative;
+
+            overflow:hidden;
+
+            z-index:2;
+        }
+
+        header h1{
+
+            font-size:110px;
+
+            letter-spacing:4px;
+
+            background:linear-gradient(
+            90deg,
+            #ffffff,
+            #d9b3ff,
+            #7df9ff,
+            #ff9ad5
+            );
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+
+            animation:aparecer 1s ease;
+        }
+
+        header p{
+
+            font-size:34px;
+
+            margin-top:20px;
+
+            max-width:900px;
+
+            color:#f5eaff;
+
+            animation:aparecer 1.5s ease;
+        }
+
+        /* NAV */
+
+        nav{
+
+            position:sticky;
+
+            top:0;
+
+            z-index:1000;
+
+            padding:18px;
+
+            text-align:center;
+
+            backdrop-filter:blur(14px);
+
+            background:rgba(25,15,45,0.45);
+
+            border-bottom:1px solid rgba(255,255,255,0.15);
+        }
+
+        nav a{
+
+            color:white;
+
+            text-decoration:none;
+
+            margin:0 25px;
+
+            font-size:26px;
+
+            transition:0.4s;
+        }
+
+        nav a:hover{
+
+            color:#7df9ff;
+
+            text-shadow:0 0 10px #7df9ff;
+        }
+
+        /* CONTENEDORES */
+
+        .contenedor{
+
+            width:90%;
+
+            margin:auto;
+
+            padding:100px 0;
+
+            position:relative;
+
+            z-index:2;
+        }
+
+        .titulo{
+
+            text-align:center;
+
+            font-size:70px;
+
+            margin-bottom:60px;
+
+            color:white;
+
+            text-shadow:
+            0 0 10px rgba(255,255,255,0.5),
+            0 0 25px rgba(180,120,255,0.6);
+
+            animation:aparecer 1s ease;
+        }
+
+        /* TARJETAS */
+
+        .miembros{
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:45px;
+
+            flex-wrap:wrap;
+        }
+
+        .card{
+
+            width:360px;
+
+            background:rgba(255,255,255,0.08);
+
+            border:1px solid rgba(255,255,255,0.15);
+
+            border-radius:30px;
+
+            overflow:hidden;
+
+            backdrop-filter:blur(15px);
+
+            box-shadow:
+            0 10px 35px rgba(0,0,0,0.35);
+
+            transition:0.5s;
+
+            animation:aparecer 1s ease;
+        }
+
+        .card:hover{
+
+            transform:
+            translateY(-12px)
+            scale(1.03);
+
+            box-shadow:
+            0 0 25px rgba(125,249,255,0.5),
+            0 0 40px rgba(255,154,213,0.35);
+        }
+
+        /* IMÁGENES */
+
+        .imagen-contenedor{
+
+            width:100%;
+
+            height:380px;
+
+            overflow:hidden;
+
+            position:relative;
+        }
+
+        .imagen-contenedor::after{
+
+            content:"";
+
+            position:absolute;
+
+            inset:0;
+
+            background:linear-gradient(
+            transparent,
+            rgba(140,0,255,0.2)
+            );
+        }
+
+        .imagen-contenedor img{
+
+            width:100%;
+
+            height:100%;
+
+            object-fit:cover;
+
+            object-position:center 20%;
+
+            transition:0.7s;
+        }
+
+        .card:hover img{
+
+            transform:scale(1.1);
+        }
+
+        /* CONTENIDO */
+
+        .contenido-card{
+
+            padding:30px;
+        }
+
+        .contenido-card h3{
+
+            font-size:42px;
+
+            margin-bottom:18px;
+
+            text-align:center;
+
+            color:#ffffff;
+        }
+
+        .contenido-card p{
+
+            font-size:22px;
+
+            line-height:1.7;
+
+            text-align:justify;
+
+            color:#f3e8ff;
+        }
+
+        /* BOTONES */
+
+        .boton{
+
+            display:inline-block;
+
+            margin-top:22px;
+
+            padding:14px 28px;
+
+            border-radius:18px;
+
+            background:linear-gradient(
+            45deg,
+            #7b2cbf,
+            #00c2ff,
+            #ff4fc3
+            );
+
+            background-size:300% 300%;
+
+            animation:gradiente 6s ease infinite;
+
+            color:white;
+
+            text-decoration:none;
+
+            font-size:22px;
+
+            transition:0.4s;
+        }
+
+        .boton:hover{
+
+            transform:scale(1.07);
+
+            box-shadow:
+            0 0 20px rgba(255,255,255,0.4);
+        }
+
+        @keyframes gradiente{
+
+            0%{
+                background-position:0% 50%;
+            }
+
+            50%{
+                background-position:100% 50%;
+            }
+
+            100%{
+                background-position:0% 50%;
+            }
+
+        }
+
+        /* FORMULARIO */
+
+        .contacto{
+
+            width:80%;
+
+            max-width:950px;
+
+            margin:auto;
+
+            background:rgba(255,255,255,0.08);
+
+            border:1px solid rgba(255,255,255,0.15);
+
+            backdrop-filter:blur(14px);
+
+            padding:45px;
+
+            border-radius:30px;
+
+            animation:aparecer 1s ease;
+        }
+
+        .contacto label{
+
+            display:block;
+
+            margin-top:20px;
+
+            font-size:28px;
+        }
+
+        .contacto input,
+        .contacto textarea,
+        .contacto select{
+
+            width:100%;
+
+            padding:16px;
+
+            margin-top:10px;
+
+            border:none;
+
+            border-radius:15px;
+
+            background:rgba(255,255,255,0.12);
+
+            color:white;
+
+            font-size:22px;
+
+            font-family:'Cormorant Garamond', serif;
+
+            outline:none;
+        }
+
+        .contacto select option{
+
+            color:black;
+        }
+
+        .contacto textarea{
+
+            resize:none;
+
+            height:180px;
+        }
+
+        .contacto input::placeholder,
+        .contacto textarea::placeholder{
+
+            color:#ddd;
+        }
+
+        .contacto button{
+
+            width:100%;
+
+            margin-top:30px;
+
+            padding:16px;
+
+            border:none;
+
+            border-radius:18px;
+
+            background:linear-gradient(
+            45deg,
+            #7b2cbf,
+            #00c2ff,
+            #ff4fc3
+            );
+
+            background-size:300% 300%;
+
+            animation:gradiente 6s ease infinite;
+
+            color:white;
+
+            font-size:28px;
+
+            cursor:pointer;
+
+            transition:0.4s;
+
+            font-family:'Cormorant Garamond', serif;
+        }
+
+        .contacto button:hover{
+
+            transform:scale(1.03);
+
+            box-shadow:
+            0 0 20px rgba(255,255,255,0.35);
+        }
+
+        /* FOOTER */
+
+        footer{
+
+            text-align:center;
+
+            padding:28px;
+
+            background:rgba(20,10,35,0.7);
+
+            font-size:22px;
+
+            backdrop-filter:blur(10px);
+
+            margin-top:40px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- BURBUJAS -->
+
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>ExcelCast</h1>
+
+        <p>
+            Un portal interactivo y moderno diseñado para presentar nuestro proyecto MOS mediante documentos, podcast y recursos digitales de forma profesional y visualmente atractiva.
+        </p>
+
+    </header>
+
+    <!-- NAV -->
+
+    <nav>
+
+        <a href="#inicio">Inicio</a>
+
+        <a href="#proyecto">Nuestro Proyecto</a>
+
+        <a href="#desarrollo">Proceso de Desarrollo</a>
+
+        <a href="#contacto">Contacto</a>
+
+    </nav>
+
+    <!-- INICIO -->
+
+    <section class="contenedor" id="inicio">
+
+        <h2 class="titulo">Integrantes del Proyecto</h2>
+
+        <div class="miembros">
+
+            <!-- VICTOR -->
+
+            <div class="card">
+
+                <div class="imagen-contenedor">
+
+                    <img src="imágenes/Victor.jpeg" alt="Victor García">
+
+                </div>
+
+                <div class="contenido-card">
+
+                    <h3>Victor García</h3>
+
+                    <p>
+                        Estudiante de bachillerato en la materia de MOS, caracterizado por su perfil sociable y su afinidad musical por bandas como Switchfoot y Skillet, comprometido con la calidad de la presente entrega.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- ALISON -->
+
+            <div class="card">
+
+                <div class="imagen-contenedor">
+
+                    <img src="imágenes/Alison.jpeg" alt="Alison Carbajal">
+
+                </div>
+
+                <div class="contenido-card">
+
+                    <h3>Alison Carbajal</h3>
+
+                    <p>
+                        Estudiante de bachillerato con formación en arte y japonés, destacando por su rápido entendimiento y capacidad de retención, optimizando su aprendizaje mediante recursos visuales y explicaciones dinámicas.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- PROYECTO -->
+
+    <section class="contenedor" id="proyecto">
+
+        <h2 class="titulo">Nuestro Proyecto</h2>
+
+        <div class="miembros">
+
+            <!-- DOCUMENTO -->
+
+            <div class="card">
+
+                <div class="contenido-card">
+
+                    <h3>Documento de Investigación</h3>
+
+                    <p>
+                        Accede al documento principal de investigación relacionado con el proyecto MOS.
+                    </p>
+
+                    <a href="Imágenes/Actividad mes de Abril ( MOS) (1).docx"
+                    target="_blank"
+                    class="boton">
+
+                        Abrir Documento
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- GUIÓN -->
+
+            <div class="card">
+
+                <div class="contenido-card">
+
+                    <h3>Guión de Podcast</h3>
+
+                    <p>
+                        Visualiza el contenido y estructura utilizada para el desarrollo del podcast.
+                    </p>
+
+                    <a href="guion.html" class="boton">
+
+                        Ver Guión
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- AUDIO -->
+
+            <div class="card">
+
+                <div class="contenido-card">
+
+                    <h3>Audio Podcast</h3>
+
+                    <p>
+                        Escucha el podcast completo mediante un reproductor dedicado.
+                    </p>
+
+                    <a href="audio.html" class="boton">
+
+                        Escuchar Podcast
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- PROCESO -->
+
+    <section class="contenedor" id="desarrollo">
+
+        <h2 class="titulo">Proceso de Desarrollo</h2>
+
+        <div class="contacto">
+
+            <!-- HERRAMIENTA -->
+
+            <div style="margin-bottom:35px;">
+
+                <h3 style="
+                font-size:38px;
+                margin-bottom:15px;
+                color:#7df9ff;
+                text-shadow:0 0 10px rgba(125,249,255,0.5);
+                ">
+
+                    • ¿Qué herramienta se utilizó?
+
+                </h3>
+
+                <p style="
+                font-size:26px;
+                line-height:1.8;
+                text-align:justify;
+                color:#f3e8ff;
+                ">
+
+                    Para el desarrollo del presente portal web se utilizó la herramienta de inteligencia artificial ChatGPT, empleada como apoyo para la creación del código HTML y CSS, el diseño visual de la interfaz, la organización del contenido y la implementación de elementos interactivos dentro del sitio web.
+
+                </p>
+
+            </div>
+
+            <!-- PROMPTS -->
+
+            <div style="margin-bottom:35px;">
+
+                <h3 style="
+                font-size:38px;
+                margin-bottom:15px;
+                color:#ff9ad5;
+                text-shadow:0 0 10px rgba(255,154,213,0.5);
+                ">
+
+                    • ¿Qué se le pidió? (prompts)
+
+                </h3>
+
+                <p style="
+                font-size:26px;
+                line-height:1.8;
+                text-align:justify;
+                color:#f3e8ff;
+                ">
+
+                    Se solicitaron instrucciones relacionadas con la creación de un portal web moderno y profesional para la materia MOS. Entre las peticiones realizadas se incluyeron la creación de tarjetas para los integrantes, incorporación de animaciones visuales, diseño con colores morados y complementarios, integración de formularios de contacto, navegación interactiva, reproducción de audio, visualización del guion del podcast y aplicación de estilos avanzados mediante CSS.
+
+                </p>
+
+            </div>
+
+            <!-- RESULTADOS -->
+
+            <div>
+
+                <h3 style="
+                font-size:38px;
+                margin-bottom:15px;
+                color:#d9b3ff;
+                text-shadow:0 0 10px rgba(217,179,255,0.5);
+                ">
+
+                    • ¿Qué resultados se obtuvieron?
+
+                </h3>
+
+                <p style="
+                font-size:26px;
+                line-height:1.8;
+                text-align:justify;
+                color:#f3e8ff;
+                ">
+
+                    Como resultado se obtuvo un portal web interactivo, dinámico y visualmente atractivo, compuesto por diferentes secciones organizadas para la presentación del proyecto MOS. El sitio incluye animaciones, diseño responsivo, formularios funcionales, tarjetas informativas, reproducción multimedia y una estética moderna basada en efectos visuales tipo glassmorphism y combinaciones cromáticas armónicas.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACTO -->
+
+    <section class="contenedor" id="contacto">
+
+        <h2 class="titulo">Contáctanos</h2>
+
+        <div class="contacto">
+
+            <form action="https://formsubmit.co/victorelbeto777@gmail.com" method="POST">
+
+                <!-- CONFIGURACIÓN -->
+
+                <input type="hidden" name="_captcha" value="false">
+
+                <input type="hidden" name="_subject" value="Nuevo mensaje desde ExcelCast">
+
+                <!-- NOMBRE -->
+
+                <label>Nombre Completo</label>
+
+                <input
+                type="text"
+                name="nombre"
+                placeholder="Ingrese su nombre completo"
+                required>
+
+                <!-- CORREO -->
+
+                <label>Correo Electrónico</label>
+
+                <input
+                type="email"
+                name="email"
+                placeholder="Ingrese su correo electrónico"
+                required>
+
+                <!-- TELÉFONO -->
+
+                <label>Número Telefónico</label>
+
+                <input
+                type="tel"
+                name="telefono"
+                placeholder="Ingrese su número telefónico">
+
+                <!-- INSTITUCIÓN -->
+
+                <label>Institución Educativa</label>
+
+                <input
+                type="text"
+                name="institucion"
+                placeholder="Ingrese el nombre de su institución">
+
+                <!-- CONSULTA -->
+
+                <label>Tipo de Consulta</label>
+
+                <select name="consulta">
+
+                    <option value="">Seleccione una opción</option>
+
+                    <option>Información General</option>
+
+                    <option>Consulta Académica</option>
+
+                    <option>Retroalimentación</option>
+
+                    <option>Soporte Técnico</option>
+
+                    <option>Otro</option>
+
+                </select>
+
+                <!-- MENSAJE -->
+
+                <label>Mensaje</label>
+
+                <textarea
+                name="mensaje"
+                placeholder="Escriba su mensaje aquí..."
+                required></textarea>
+
+                <!-- BOTÓN -->
+
+                <button type="submit">
+
+                    Enviar Mensaje
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+
+            © 2026 ExcelCast | Proyecto MOS
+
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
